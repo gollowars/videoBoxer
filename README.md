@@ -1,3 +1,5 @@
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
 # videoBoxer
 
 videoBoxer is simple video backgrounds width jQuery
@@ -24,5 +26,5 @@ let options = {
   thumb: '/videos/sample.png'
 }
 
-this.videoBoxer = new VideoBoxer($('#movieArea'),movieArray,options)
+let videoBoxer = new VideoBoxer($('#movieArea'),movieArray,options)
 ```
