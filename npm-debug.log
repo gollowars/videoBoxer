@@ -1,0 +1,109 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/ashikawa/.nodebrew/node/v6.5.0/bin/node',
+1 verbose cli   '/Users/ashikawa/.nodebrew/current/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.10.3
+3 info using node@v6.5.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/ashikawa/work/SEA_BREEZE/100_dev/00_experiment/00_dev_base/node_modules/videoBoxer',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/ashikawa/.npm/videoBoxer/0.0.2/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/ashikawa/.npm correctMkdir not in flight; initializing
+10 info lifecycle videoBoxer@0.0.2~prepublish: videoBoxer@0.0.2
+11 silly lifecycle videoBoxer@0.0.2~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/ashikawa/.npm/videoBoxer/0.0.2/package.tgz',
+12 verbose tar pack   '/Users/ashikawa/work/SEA_BREEZE/100_dev/00_experiment/00_dev_base/node_modules/videoBoxer' ]
+13 verbose tarball /Users/ashikawa/.npm/videoBoxer/0.0.2/package.tgz
+14 verbose folder /Users/ashikawa/work/SEA_BREEZE/100_dev/00_experiment/00_dev_base/node_modules/videoBoxer
+15 verbose addLocalTarball adding from inside cache /Users/ashikawa/.npm/videoBoxer/0.0.2/package.tgz
+16 verbose correctMkdir /Users/ashikawa/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd videoBoxer@0.0.2
+18 verbose afterAdd /Users/ashikawa/.npm/videoBoxer/0.0.2/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/ashikawa/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/ashikawa/.npm/videoBoxer/0.0.2/package/package.json written
+21 silly publish { name: 'videoBoxer',
+21 silly publish   version: '0.0.2',
+21 silly publish   description: '[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)',
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   author: { name: 'Yoshizumi Ashikawa' },
+21 silly publish   license: 'MIT',
+21 silly publish   private: false,
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/gollowars/videoBoxer.git' },
+21 silly publish   readme: '[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)\n\n# videoBoxer\n\nvideoBoxer is simple video backgrounds width jQuery\n\n## requred\njQuery\n\n\n## install\n```\nnpm install videoBoxer\n```\n\n## example\n```\nimport VideoBoxer from \'videoBoxer\'\n\nlet movieArray = [\'/videos/sample.mp4\',\'/videos/sample.ogv\',\'/videos/sample.webm\']\nlet options = {\n  movieSize: {\n    width: 582,\n    height: 360\n  },\n  thumb: \'/videos/sample.png\'\n}\n\nlet videoBoxer = new VideoBoxer($(\'#movieArea\'),movieArray,options)\n```\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: 'b9e0bd54528b439719d6e215b3b6096900150ebd',
+21 silly publish   bugs: { url: 'https://github.com/gollowars/videoBoxer/issues' },
+21 silly publish   homepage: 'https://github.com/gollowars/videoBoxer#readme',
+21 silly publish   _id: 'videoBoxer@0.0.2',
+21 silly publish   _shasum: 'fdd6c3052d6f4e4b3470fa151efc4f2416a01a88',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name videoBoxer
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'videoBoxer',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'videoBoxer',
+26 silly mapToRegistry   name: 'videoBoxer',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/videoBoxer
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/ashikawa/.npm/videoBoxer/0.0.2/package.tgz
+30 verbose request uri https://registry.npmjs.org/videoBoxer
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 15:57:21
+33 verbose request using bearer token for auth
+34 verbose request id 64cec78d1ab62d1b
+35 http request PUT https://registry.npmjs.org/videoBoxer
+36 http 403 https://registry.npmjs.org/videoBoxer
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '95',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Thu, 13 Oct 2016 06:57:22 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-nrt6124-NRT',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1476341841.497832,VS0,VE604',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/ashikawa/.npm/registry.npmjs.org/videoBoxer on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 0.0.2." : videoBoxer
+40 verbose stack     at makeError (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+40 verbose stack     at Request._callback (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+40 verbose stack     at Request.self.callback (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/request/request.js:200:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+40 verbose stack     at emitOne (events.js:101:20)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/Users/ashikawa/.nodebrew/node/v6.5.0/lib/node_modules/npm/node_modules/request/request.js:988:12)
+41 verbose statusCode 403
+42 verbose pkgid videoBoxer
+43 verbose cwd /Users/ashikawa/work/SEA_BREEZE/100_dev/00_experiment/00_dev_base/node_modules/videoBoxer
+44 error Darwin 15.5.0
+45 error argv "/Users/ashikawa/.nodebrew/node/v6.5.0/bin/node" "/Users/ashikawa/.nodebrew/current/bin/npm" "publish"
+46 error node v6.5.0
+47 error npm  v3.10.3
+48 error code E403
+49 error "You cannot publish over the previously published version 0.0.2." : videoBoxer
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
