@@ -13,7 +13,7 @@ npm install videoBoxer
 
 ## example
 ```
-import VideoBoxer from 'VideoBoxer'
+import VideoBoxer from 'videoBoxer'
 
 let movieArray = ['/videos/sample.mp4','/videos/sample.ogv','/videos/sample.webm']
 let options = {
