@@ -12,7 +12,8 @@ module.exports = class VideoBoxer {
     this.options = {
       movieSize: {
         width: 1366,
-        height: 768
+        height: 768,
+        margin: 0
       },
       thumb: '',
       autoplay: true,
@@ -24,6 +25,7 @@ module.exports = class VideoBoxer {
     $.extend(true, this.options, options)
     
     this.movieSize = this.options.movieSize
+    this.movieSize.height = this.movieSize.height - (this.movieSize.marign*2)
     this.autoplay = this.options.autoplay
     this.loop = this.options.loop
     this.controls = this.options.controls
@@ -99,14 +101,19 @@ module.exports = class VideoBoxer {
     var height = 0
 
     let hRatioDiff = this.boxH/this.boxW - this.movieSize.height/this.movieSize.width
+    let opticalHScale = this.boxH/this.movieSize.height
+
     if(hRatioDiff > 0){
-      height = this.boxH
+      height = this.boxH*opticalHScale
       width = Math.ceil(this.boxH*this.movieSize.width/this.movieSize.height)
 
     }else {
       width = this.boxW
-      height = Math.ceil(this.boxW*this.movieSize.height/this.movieSize.width)
+      let tempBoxH = this.movieSize.height + (this.movieSize.marign*2)
+      height = Math.ceil(this.boxW*tempBoxH/this.movieSize.width)
     }
+
+    // console.log('act width : ',width)
 
     this.video.css({
       width: width + 'px',
