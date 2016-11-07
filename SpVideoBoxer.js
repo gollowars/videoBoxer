@@ -1,12 +1,7 @@
 'use strict'
-let SpVideoBoxer =  require('./SpVideoBoxer')
-let ua = navigator.userAgent
 let boxersCnt = 0
 
-class VideoBoxer {
-  ////////////////////
-  //@pram (object: jQueryObject, array: videoFiles, object: options)
-  ////////////////////
+module.exports = class SpVideoBoxer {
 
   constructor(ele,files,options){
     boxersCnt++
@@ -27,36 +22,48 @@ class VideoBoxer {
 
     $.extend(true, this.options, options)
     
+    this.canplay = false
+    this.ctime = 0
+    this.lastTime = 0
+
     this.movieSize = this.options.movieSize
-    this.movieSize.height = this.movieSize.height - (this.movieSize.marign*2)
+    this.optScale = 2
+
+    this.movieSize.height = this.movieSize.height
     this.autoplay = this.options.autoplay
     this.loop = this.options.loop
     this.controls = this.options.controls
     this.muted = this.options.muted
     this.thumb = this.options.thumb
-    this.canplay = false
 
     this.init()
   }
 
   init(){
 
-    this.appendMovieDom()
+    this.appendMovieCanvas()
     this.fixMovieSizeOffset()
-    
-    $(window).on('resize.videoBoxer',()=>{
-      setTimeout(()=>{
-        this.fixMovieSizeOffset()
-      },200)
-    })
-    this.video[0].addEventListener('canplay',()=>{this.onCanPlayHandler()})
+
+    $(window).on('resize.videoBoxer',()=>{this.fixMovieSizeOffset()})
+    this.virtualVideo.addEventListener('canplay',()=>{this.onCanPlayHandler()})
   }
 
-  appendMovieDom(){
+  appendMovieCanvas(){
     let autoplay = (this.autoplay) ? 'autoplay' : ''
     let loop = (this.loop) ? 'loop' : ''
     let muted = (this.muted) ? 'muted' : ''
     let controls = (this.controls) ? 'controls' : ''
+
+    if(this.targetEle.css('position') == 'static'){
+      this.targetEle.css('position','relative')
+    }
+
+    let canvas = document.createElement('canvas')
+    canvas.id = `spVideoBoxer${boxersCnt}`
+    canvas.width = this.movieSize.width
+    canvas.height = this.movieSize.height
+    this.targetEle.append(canvas)
+    this.canvas = canvas
 
     var dom = `<video id="videoBoxerVideo" ${autoplay} ${muted} ${controls} ${loop} poster="${this.thumb}">`
 
@@ -79,13 +86,15 @@ class VideoBoxer {
 
     dom+= '</video>'
 
-    ////////////////////
-    // style
-    ////////////////////
-    if(this.targetEle.css('position') == 'static'){
-      this.targetEle.css('position','relative')
-    }
-    this.video = $(dom)
+    $('body').append($(dom))
+    this.virtualVideo = $('#videoBoxerVideo')[0]
+    $('#videoBoxerVideo').css({'display':'none'})
+    
+
+
+    this.ctx = document.getElementById(`spVideoBoxer${boxersCnt}`).getContext("2d")
+
+    this.video = $(`#${canvas.id}`)
     this.video.css({
       position:'absolute',
       top: "50%",
@@ -93,8 +102,6 @@ class VideoBoxer {
       verticalAlign:'top'
     })
 
-
-    this.targetEle.append(this.video)
   }
 
   onCanPlayHandler(){
@@ -112,50 +119,45 @@ class VideoBoxer {
     var height = 0
 
     let hRatioDiff = this.boxH/this.boxW - this.movieSize.height/this.movieSize.width
-    let opticalHScale = this.boxH/this.movieSize.height
 
     if(hRatioDiff > 0){
-      height = this.boxH*opticalHScale
+      height = this.boxH
       width = Math.ceil(this.boxH*this.movieSize.width/this.movieSize.height)
 
     }else {
       width = this.boxW
-      let tempBoxH = this.movieSize.height + (this.movieSize.marign*2)
+      let tempBoxH = this.movieSize.height
       height = Math.ceil(this.boxW*tempBoxH/this.movieSize.width)
     }
-
-    // console.log('act width : ',width)
 
     this.video.css({
       width: width + 'px',
       height: height + 'px',
       marginLeft: -width/2 + 'px',
-      marginTop: -(height/2) + 'px'
+      marginTop: -(height/2) + 'px',
+      transform:'scale(1.0,1.0)'
     })
+
   }
 
   //API
   pause(){
-    Logger.debug('pause')
-    this.video[0].pause()
-    this.status = 'pause'
   }
   play(){
     Logger.debug('play')
-    this.video[0].play()
-    this.status = 'playing'
+    this.lastTime = Date.now()
+    setInterval(()=>{
+      var curTime = Date.now()
+      var diff = Date.now() - this.lastTime
+      this.lastTime = curTime
+      this.ctime += diff/1000
+      this.virtualVideo.currentTime = this.ctime
+      this.ctx.drawImage(this.virtualVideo, 0, 0, this.movieSize.width, this.movieSize.height)
+      if(this.virtualVideo.duration <= this.virtualVideo.currentTime){
+          this.ctime = 0
+      }
+    }, 1000/40)
   }
   restart(){
-    this.video[0].restart()
   }
-}
-
-
-if(/(iPhone|iPod)/.test(ua)) {
-  module.exports = SpVideoBoxer
-}else if(/(Android)/.test(ua)){
-  module.exports = VideoBoxer
-}else{
-  module.exports = VideoBoxer
-
 }
